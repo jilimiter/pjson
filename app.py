@@ -1,12 +1,12 @@
 import streamlit as st
 
-st.title("🚗 GM SW Intern Streamlit Demo 4")
+st.title("🚗 GM SW Intern Streamlit Demo 5")
 
-st.write("안녕하세요! Streamlit으로 만든 네 번째 앱입니다.")
+st.write("Hi! This is 5th App by using Streamlit.")
 
-name = st.text_input("이름을 입력하세요")
+name = st.text_input("Input your name")
 
 if name:
-    st.success(f"{name}님, 반갑습니다! 🎉")
+    st.success(f"Nice to meet you {name}! 🎉")
 
-st.button("버튼")
+st.button("Button")
