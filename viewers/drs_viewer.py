@@ -3,7 +3,6 @@ import plotly.graph_objects as go
 
 def render_drs(curr, data_pool):
     val = curr['drs_t']
-    # 지수님 규칙: off 빨강 / enabled 노랑 / on 초록
     if val >= 10:
         status, color, shadow = "ON", "#00FF41", "#00FF41"
     elif val >= 8:
@@ -11,7 +10,6 @@ def render_drs(curr, data_pool):
     else:
         status, color, shadow = "OFF", "#FF1E00", "#FF1E00"
     
-    # [디자인] 버튼 스타일의 UI와 LAP 정보 배치
     st.markdown(f"""
         <style>
         .drs-button-wrapper {{
@@ -61,33 +59,29 @@ def render_drs(curr, data_pool):
         </div>
     """, unsafe_allow_html=True)
 
-    # [개선] 트랙 맵 디자인 (배경 연두색 포인트 & 선 굵기 강화)
     fig_map = go.Figure()
-    
-    # 트랙 배경 반투명 연두색 글로우 효과
+
     fig_map.add_trace(go.Scatter(
         x=data_pool['x_t'], y=data_pool['y_t'],
         mode='lines', 
-        line=dict(color='rgba(0, 255, 65, 0.1)', width=15), # 외곽 글로우
+        line=dict(color='rgba(0, 255, 65, 0.1)', width=30),
         hoverinfo='skip'
     ))
 
-    # 메인 서킷 라인 (굵게)
     fig_map.add_trace(go.Scatter(
         x=data_pool['x_t'], y=data_pool['y_t'],
         mode='lines', 
-        line=dict(color='#00FF41', width=5), # 선 굵기 5로 대폭 강화
+        line=dict(color="#32ED61", width=5), 
         hoverinfo='skip'
     ))
     
-    # Target 차량 위치 표시
     fig_map.add_trace(go.Scatter(
         x=[curr['x_t']], y=[curr['y_t']],
         mode='markers+text',
         text=["TARGET"],
         textposition="top center",
-        textfont=dict(color="#321E8A", size=11, family="monospace"),
-        marker=dict(size=15, color="#321E8A", symbol='circle', line=dict(width=2, color='white'))
+        textfont=dict(color="#472DB7", size=11, family="monospace"),
+        marker=dict(size=15, color="#472DB7", symbol='star', line=dict(width=2, color='white'))
     ))
 
     fig_map.update_layout(

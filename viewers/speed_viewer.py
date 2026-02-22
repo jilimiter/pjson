@@ -19,23 +19,20 @@ def render_speed_header(curr, data_pool):
         st.metric("Target", f"{curr['speed_t']:.1f}", delta=f"{diff:+.1f}")
         st.caption(f"Ref: {curr['speed_r']:.1f} km/h")
 
-    # [수정] 속도 흐름 차트에 범례 추가
     idx = int(st.session_state.idx)
     trace = data_pool.iloc[max(0, idx-60):idx+1][['speed_r', 'speed_t']].copy().reset_index(drop=True)
 
     fig_trace = go.Figure()
-    # Reference: 하늘색 면적
     fig_trace.add_trace(go.Scatter(
         y=trace['speed_r'], 
-        name='REF (2023)', # 범례 이름 명시
+        name='REF', 
         fill='tozeroy', 
         line=dict(width=0), 
         fillcolor='rgba(135, 206, 250, 0.4)'
     ))
-    # Target: 파란색 선
     fig_trace.add_trace(go.Scatter(
         y=trace['speed_t'], 
-        name='TARGET (2024)', # 범례 이름 명시
+        name='TARGET', 
         line=dict(color='#0088ff', width=3, shape='spline')
     ))
 
@@ -45,7 +42,7 @@ def render_speed_header(curr, data_pool):
         margin=dict(l=0, r=0, t=10, b=0),
         xaxis=dict(showticklabels=False, showgrid=False),
         yaxis=dict(showgrid=True, gridcolor="#333", autorange=True),
-        showlegend=True, # 범례 표시 활성화
+        showlegend=True, 
         legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1, font=dict(size=10))
     )
     st.plotly_chart(fig_trace, use_container_width=True, config={'staticPlot': True})

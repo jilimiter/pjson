@@ -7,7 +7,7 @@ from viewers.brake_throttle_viewer import render_bt_map
 from viewers.drs_viewer import render_drs
 from viewers.video_viewer import render_reference_video
 
-st.set_page_config(page_title="GMTCK High-Tech Dash", layout="wide")
+st.set_page_config(page_title="psjon telemetry", layout="wide")
 
 @st.cache_data
 def get_synced_data(ref, tgt):
@@ -32,14 +32,14 @@ def get_synced_data(ref, tgt):
         'drs_t': get_safe_interp(df_t, ['DRS', 'drs']),
         'brake_t': get_safe_interp(df_t, ['Brake', 'brake']),
         'throttle_t': get_safe_interp(df_t, ['Throttle', 'throttle']),
-        'x_t': get_safe_interp(df_t, ['X', 'x']), # 미니맵용 좌표
+        'x_t': get_safe_interp(df_t, ['X', 'x']), 
         'y_t': get_safe_interp(df_t, ['Y', 'y'])
     })
     synced['score'] = (100 - np.abs(synced['speed_r']-synced['speed_t'])*1.5).clip(0,100).rolling(5, min_periods=1).mean()
     return synced
 
 with st.sidebar:
-    st.header("🏁 GMTCK TELEMETRY")
+    st.header("Let`s Win Max")
     ref_file = st.file_uploader("Ref", type=['csv'], label_visibility="collapsed")
     st.caption("Reference")
     tgt_file = st.file_uploader("Tgt", type=['csv'], label_visibility="collapsed")
@@ -66,7 +66,7 @@ if ref_file and tgt_file:
     def main_engine():
         if st.session_state.playing:
             new_idx = st.session_state.idx + 8
-            if new_idx >= len(data_pool): # 한 바퀴 완료 시 Lap 증가
+            if new_idx >= len(data_pool): 
                 st.session_state.lap_count += 1
             st.session_state.idx = new_idx % len(data_pool)
         
@@ -75,7 +75,7 @@ if ref_file and tgt_file:
         
         c1, c2, c3 = st.columns([1.1, 0.9, 1.2])
         with c1: render_speed_header(curr, data_pool)
-        with c2: render_drs(curr, data_pool) # 미니맵 렌더링 포함
+        with c2: render_drs(curr, data_pool) 
         with c3: render_reference_video()
         
         st.markdown("---")
