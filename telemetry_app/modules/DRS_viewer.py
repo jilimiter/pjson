@@ -1,4 +1,4 @@
-# DRS_viewer.py
+# modules/DRS_viewer.py
 import io
 from dataclasses import dataclass
 from typing import Optional, Tuple
@@ -65,9 +65,6 @@ def build_drs_dataframe_from_raw(raw_df: pd.DataFrame) -> Tuple[Optional[pd.Data
 
     except Exception as e:
         return None, f"파일 파싱 중 오류 발생: {e}"
-    
-def read_csv_bytes(file_bytes: bytes) -> pd.DataFrame:
-    return pd.read_csv(io.BytesIO(file_bytes))
 
 
 def validate_required_columns(df: pd.DataFrame, required_cols: list[str]) -> Optional[str]:
@@ -105,45 +102,6 @@ def normalize_drs_to_01(series: pd.Series) -> np.ndarray:
         arr = pd.to_numeric(s, errors="coerce").fillna(0).astype(int).to_numpy()
 
     return np.clip(arr, 0, 1)
-
-
-def load_drs_dataframe_from_upload_bytes(file_bytes: bytes) -> Tuple[Optional[pd.DataFrame], Optional[str]]:
-    """
-    원본 load_drs_dataframe(uploaded_file)와 동등한 결과를 반환하되,
-    Streamlit 의존(st.error) 없이 (df, err)로 반환.
-
-    반환 컬럼:
-      - Time (timedelta)
-      - DRS (0/1 int)
-      - time_s (float seconds, UI용)
-    """
-    try:
-        df = read_csv_bytes(file_bytes)
-
-        err = validate_required_columns(df, REQUIRED_COLS_DRS)
-        if err:
-            return None, err
-
-        df = parse_time_to_timedelta(df, "Time")
-        if df["Time"].isna().all():
-            return None, "Time 컬럼을 timedelta로 파싱할 수 없습니다."
-
-        df = df.sort_values("Time").reset_index(drop=True)
-
-        drs01 = normalize_drs_to_01(df["DRS"])
-
-        out = pd.DataFrame(
-            {
-                "Time": df["Time"],
-                "time_s": df["Time"].dt.total_seconds().astype(float),
-                "DRS": drs01.astype(int),
-            }
-        )
-        return out, None
-
-    except Exception as e:
-        return None, f"파일 파싱 중 오류 발생: {e}"
-
 
 # =========================================================
 # Animation helpers

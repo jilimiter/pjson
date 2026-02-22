@@ -9,10 +9,10 @@
 ```
 telemetry_app/
   app.py
-  viewers/
+  modules/
     __init__.py
-    drs_viewer.py
-  core/
+    DRS_viewer.py
+  utils/
     __init__.py
     io_utils.py
     plotly_render.py
