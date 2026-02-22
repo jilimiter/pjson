@@ -1,10 +1,11 @@
-🏎️ pjson: F1 Telemetry Analysis Dash
-A high-tech telemetry dashboard developed during the GMTCK internship for analyzing F1 driving data. Optimized for performance comparison and modular scalability.
+# 🏎️ pjson: 1차 통합 시안
 
-📁 Project Structure
+A high-tech telemetry dashboard developed during the GMTCK internship for analyzing F1 driving data. This version focuses on the first integration of modular components and UI optimization.
+
+## 📁 Project Structure
 The project is organized into modular components to ensure clean separation of concerns:
 
-Plaintext
+```text
 SW-INTERNSHIP/
 ├── app.py                      # Main entry point & Global layout
 ├── core/                       # Backend & Data processing
@@ -19,6 +20,7 @@ SW-INTERNSHIP/
 │   ├── speed_viewer.py         # Speed gauge & comparative charts
 │   └── video_viewer.py         # Reference onboard streaming
 └── venv/                       # Virtual environment
+
 ✨ Key Updates (Max Branch)
 Modularization: Decoupled UI logic into individual .py files in viewers/ for better maintainability.
 
