@@ -22,39 +22,43 @@ SW-INTERNSHIP/
 │   ├── speed_viewer.py         # Speed gauge & comparative charts
 │   └── video_viewer.py         # Reference onboard streaming
 └── venv/                       # Virtual environment
-'''
+```
 
-Key Updates (Max Branch)
-Modularization: Decoupled UI logic into individual .py files in viewers/ for better maintainability.
+# ✨ Key Updates (Max Branch)
+## Modularization
 
-Adaptive UI: Implemented a balanced 3-column layout (col1:col2:col3) to stabilize data monitoring.
+(Decoupled UI logic into individual .py files in viewers/ for better maintainability.)
 
-Enhanced Visuals:
 
-Speed: Added Ref/Target legends and gradient area fills for intuitive flow analysis.
+## Adaptive UI
 
-Brake: Applied red gradient overlays to clearly contrast with green throttle lines.
+(Implemented a balanced 3-column layout (col1:col2:col3) to stabilize data monitoring.)
 
-DRS/Lap: Neon-digital style UI for authentic racing dashboard aesthetics.
 
-Ideas
-1. Video Playback Integration
+## Enhanced Visuals
+
+# 📝 Future Considerations & Ideas
+## Video Playback Integration
+
 Option A (YouTube API): Leveraging the YouTube Data API to stream official F1 onboard footage directly.
 
 Option B (Local Storage): Utilizing local .mp4 files for low-latency playback synced with telemetry data.
 
-2. Filling the Gap (Expansion Ideas)
+## Filling the Gap (Expansion Ideas)
+
+   
 To utilize the remaining dashboard space, the following modules are under consideration:
 
 Live Weather/Track Data: Real-time track temperature and wind speed via external APIs.
 
 G-Force Vector Map: A dynamic 2D plot showing real-time longitudinal and lateral G-forces.
 
-Sector-wise Analysis: Detailed timing breakdowns for Sectors 1, 2, and 3 to pinpoint performance gains.
+Sector-wise Analysis: Detailed timing breakdowns for Sectors 1, 2, and 3.
 
-Quick Start (Using Bash)
+## 🚀 Quick Start (Using Bash)
+```bash
 # Clone the repository
-git clone [https://github.com/jilimiter/pjson.git](https://github.com/jilimiter/pjson.git)
+git clone https://github.com/jilimiter/pjson.git
 git checkout Max
 
 # Run the dashboard
