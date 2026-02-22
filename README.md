@@ -1,19 +1,55 @@
-# Scrum Project
+🏎️ pjson: F1 Telemetry Analysis Dash
+A high-tech telemetry dashboard developed during the GMTCK internship for analyzing F1 driving data. Optimized for performance comparison and modular scalability.
 
-임시
+📁 Project Structure
+The project is organized into modular components to ensure clean separation of concerns:
 
----
+Plaintext
+SW-INTERNSHIP/
+├── app.py                      # Main entry point & Global layout
+├── core/                       # Backend & Data processing
+│   ├── __init__.py
+│   ├── io_utils.py             # CSV & FastF1 data loading
+│   └── plotly_render.py        # Core rendering logic
+├── viewers/                    # UI Display Modules
+│   ├── __init__.py
+│   ├── brake_throttle_viewer.py # Brake/Throttle overlay analysis
+│   ├── drs_viewer.py           # DRS & Lap status UI
+│   ├── score_viewer.py         # Match performance calculations
+│   ├── speed_viewer.py         # Speed gauge & comparative charts
+│   └── video_viewer.py         # Reference onboard streaming
+└── venv/                       # Virtual environment
+✨ Key Updates (Max Branch)
+Modularization: Decoupled UI logic into individual .py files in viewers/ for better maintainability.
 
-## 프로젝트 구조
+Adaptive UI: Implemented a balanced 3-column layout (col1:col2:col3) to stabilize data monitoring.
 
-```
-telemetry_app/
-  app.py
-  viewers/
-    __init__.py
-    drs_viewer.py
-  core/
-    __init__.py
-    io_utils.py
-    plotly_render.py
-```
+Enhanced Visuals:
+
+Speed: Added Ref/Target legends and gradient area fills for intuitive flow analysis.
+
+Brake: Applied red gradient overlays to clearly contrast with green throttle lines.
+
+DRS/Lap: Neon-digital style UI for authentic racing dashboard aesthetics.
+
+🚀 Quick Start
+Bash
+# Clone the repository
+git clone https://github.com/jilimiter/pjson.git
+git checkout Max
+
+# Run the dashboard
+streamlit run app.py
+
+## 📝 Future Considerations & Ideas
+
+### 1. Video Playback Integration
+* **Option A (YouTube API)**: Leveraging the YouTube Data API to stream official F1 onboard footage directly.
+* **Option B (Local Storage)**: Utilizing local `.mp4` files for low-latency playback synced with telemetry data.
+* Currently, the **Video Viewer** is designed to support both methods for maximum flexibility.
+
+### 2. Filling the Gap (Expansion Ideas)
+To utilize the remaining dashboard space, the following modules are planned:
+* **Live Weather/Track Data**: Real-time track temperature and wind speed via OpenWeather API.
+* **G-Force Vector Map**: A dynamic 2D plot showing real-time longitudinal and lateral G-forces.
+* **Sector-wise Analysis**: Detailed timing breakdowns for Sectors 1, 2, and 3 to pinpoint performance gains.
