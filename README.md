@@ -22,7 +22,7 @@ SW-INTERNSHIP/
 │   ├── speed_viewer.py         # Speed gauge & comparative charts
 │   └── video_viewer.py         # Reference onboard streaming
 └── venv/                       # Virtual environment
-
+```
 ✨ Key Updates (Max Branch)
 Modularization: Decoupled UI logic into individual .py files in viewers/ for better maintainability.
 
