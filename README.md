@@ -1,8 +1,13 @@
-🏎️ pjson: F1 Telemetry Analysis (1차 통합 시안)
+# 🏎️ pjson: F1 Telemetry Analysis (1차 통합 시안)
+
 A high-tech telemetry dashboard developed during the GMTCK internship for analyzing F1 driving data. This version focuses on the first integration of modular components and UI optimization.
 
-📁 Project Structure
+---
+
+## 📁 Project Structure
 The project is organized into modular components to ensure clean separation of concerns:
+
+```text
 SW-INTERNSHIP/
 ├── app.py                      # Main entry point & Global layout
 ├── core/                       # Backend & Data processing
@@ -31,13 +36,11 @@ Brake: Applied red gradient overlays to clearly contrast with green throttle lin
 
 DRS/Lap: Neon-digital style UI for authentic racing dashboard aesthetics.
 
-📝 Future Considerations & Ideas
+Ideas
 1. Video Playback Integration
 Option A (YouTube API): Leveraging the YouTube Data API to stream official F1 onboard footage directly.
 
 Option B (Local Storage): Utilizing local .mp4 files for low-latency playback synced with telemetry data.
-
-The Video Viewer is currently designed to support both methods for maximum flexibility.
 
 2. Filling the Gap (Expansion Ideas)
 To utilize the remaining dashboard space, the following modules are under consideration:
@@ -48,8 +51,9 @@ G-Force Vector Map: A dynamic 2D plot showing real-time longitudinal and lateral
 
 Sector-wise Analysis: Detailed timing breakdowns for Sectors 1, 2, and 3 to pinpoint performance gains.
 
-🚀 Quick Start# Clone the repository
-git clone https://github.com/jilimiter/pjson.git
+Quick Start (Using Bash)
+# Clone the repository
+git clone [https://github.com/jilimiter/pjson.git](https://github.com/jilimiter/pjson.git)
 git checkout Max
 
 # Run the dashboard
