@@ -19,6 +19,8 @@ def render_speed_header(curr, data_pool):
         st.metric("Target", f"{curr['speed_t']:.1f}", delta=f"{diff:+.1f}")
         st.caption(f"Ref: {curr['speed_r']:.1f} km/h")
 
+    st.markdown("<div style='height:120px'></div>", unsafe_allow_html=True)
+
     idx = int(st.session_state.idx)
     trace = data_pool.iloc[max(0, idx-60):idx+1][['speed_r', 'speed_t']].copy().reset_index(drop=True)
 
