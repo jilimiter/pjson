@@ -8,7 +8,7 @@ def render_reference_video():
     st.markdown("##### 📺 Reference Onboard")
     
     # 로컬 비디오 파일 경로
-    video_path = "files/Max-Verstappen-s-Pole-Lap-2025-Japanese.mp4"
+    video_path = "files/Max-Verstappen-s-Pole-Lap-2025-Japanese_sm.mp4"
     
     with st.container():
         if os.path.exists(video_path):
