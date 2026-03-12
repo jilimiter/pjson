@@ -2,6 +2,10 @@ import streamlit as st
 import plotly.graph_objects as go
 
 def render_drs(curr, data_pool):
+    """Render DRS status"""
+    st.markdown("##### 🚀 DRS Status")
+    st.markdown("<div style='margin-bottom: 8px;'></div>", unsafe_allow_html=True)
+    
     val = curr['drs_t']
     if val >= 10:
         status, color, shadow = "ON", "#00FF41", "#00FF41"
@@ -17,17 +21,17 @@ def render_drs(curr, data_pool):
             border-radius: 20px;
             padding: 20px;
             border: 1px solid rgba(0, 255, 65, 0.2);
-            height: 280px;
+            height: 150px;
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
             justify-content: space-around;
         }}
         .drs-btn {{
-            width: 140px;
-            height: 140px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
-            border: 8px solid #222;
+            border: 6px solid #222;
             background-color: #111;
             display: flex;
             flex-direction: column;
@@ -37,17 +41,16 @@ def render_drs(curr, data_pool):
             border-color: {color};
             transition: all 0.3s;
         }}
-        .btn-label {{ color: {color}; font-size: 12px; font-weight: bold; margin-bottom: -5px; }}
-        .btn-status {{ font-family: 'DS-Digital', sans-serif; font-size: 45px; color: {color}; text-shadow: 0 0 15px {color}; }}
+        .btn-label {{ color: {color}; font-size: 10px; font-weight: bold; margin-bottom: -5px; }}
+        .btn-status {{ font-family: 'DS-Digital', sans-serif; font-size: 32px; color: {color}; text-shadow: 0 0 15px {color}; }}
         .lap-badge {{
             background-color: rgba(0, 255, 65, 0.15);
             color: #00FF41;
-            padding: 5px 25px;
+            padding: 10px 30px;
             border-radius: 20px;
             font-family: 'DS-Digital', sans-serif;
-            font-size: 28px;
+            font-size: 32px;
             border: 1px solid rgba(0, 255, 65, 0.3);
-            margin-top: 10px;
         }}
         </style>
         <div class="drs-button-wrapper">
@@ -58,40 +61,3 @@ def render_drs(curr, data_pool):
             <div class="lap-badge">LAP {st.session_state.lap_count}</div>
         </div>
     """, unsafe_allow_html=True)
-
-    fig_map = go.Figure()
-
-    fig_map.add_trace(go.Scatter(
-        x=data_pool['x_t'], y=data_pool['y_t'],
-        mode='lines', 
-        line=dict(color='rgba(0, 255, 65, 0.1)', width=30),
-        hoverinfo='skip'
-    ))
-
-    fig_map.add_trace(go.Scatter(
-        x=data_pool['x_t'], y=data_pool['y_t'],
-        mode='lines', 
-        line=dict(color="#32ED61", width=5), 
-        hoverinfo='skip'
-    ))
-    
-    fig_map.add_trace(go.Scatter(
-        x=[curr['x_t']], y=[curr['y_t']],
-        mode='markers+text',
-        text=["TARGET"],
-        textposition="top center",
-        textfont=dict(color="#472DB7", size=11, family="monospace"),
-        marker=dict(size=15, color="#472DB7", symbol='star', line=dict(width=2, color='white'))
-    ))
-
-    fig_map.update_layout(
-        height=320,
-        template="plotly_dark", 
-        margin=dict(l=10, r=10, t=10, b=10),
-        xaxis=dict(showticklabels=False, showgrid=False, zeroline=False),
-        yaxis=dict(showticklabels=False, showgrid=False, zeroline=False, scaleanchor="x", scaleratio=1),
-        showlegend=False, 
-        plot_bgcolor='rgba(0,0,0,0)', 
-        paper_bgcolor='rgba(0,0,0,0)'
-    )
-    st.plotly_chart(fig_map, use_container_width=True, config={'staticPlot': True})

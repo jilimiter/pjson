@@ -3,26 +3,29 @@ import plotly.graph_objects as go
 import pandas as pd
 
 def render_speed_header(curr, data_pool):
-    diff = curr['speed_t'] - curr['speed_r']
-    st.markdown(f"##### 🚀 Speed Analysis")
+    """Render speed comparison header"""
+    st.markdown('<div style="display: flex; flex-direction: column; flex: 1; height: 100%;">', unsafe_allow_html=True)
     
-    col_g, col_m = st.columns([1.2, 0.8])
-    with col_g:
-        fig = go.Figure(go.Indicator(
-            mode="gauge+number", value=curr['speed_t'],
-            number={'suffix': " km/h", 'font': {'size': 22}},
-            gauge={'axis': {'range': [0, 360]}, 'bar': {'color': "#FF1E00"}}))
-        fig.update_layout(height=160, margin=dict(l=10,r=10,t=10,b=10), template="plotly_dark")
-        st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
+    # 제목과 속도 정보를 같은 줄에 배치
+    speed_r = curr['speed_r']
+    speed_t = curr['speed_t']
+    diff = speed_t - speed_r
+    color = "#00ff00" if diff >= 0 else "#ff0000"
+    arrow = "↑" if diff >= 0 else "↓"
     
-    with col_m:
-        st.metric("Target", f"{curr['speed_t']:.1f}", delta=f"{diff:+.1f}")
-        st.caption(f"Ref: {curr['speed_r']:.1f} km/h")
-
-    st.markdown("<div style='height:120px'></div>", unsafe_allow_html=True)
+    st.markdown(f"""
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+        <h5 style="margin: 0;">🏎️ Speed Analysis</h5>
+        <div style="text-align: right;">
+            <div style="font-size: 11px; color: #888;">Target Speed</div>
+            <div style="font-size: 18px; font-weight: bold;">{speed_t:.1f} km/h</div>
+            <div style="font-size: 12px; color: {color};">{arrow} {abs(diff):.1f} vs Ref</div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
     idx = int(st.session_state.idx)
-    trace = data_pool.iloc[max(0, idx-60):idx+1][['speed_r', 'speed_t']].copy().reset_index(drop=True)
+    trace = data_pool.iloc[max(0, idx-40):idx+1:2][['speed_r', 'speed_t']].copy().reset_index(drop=True)
 
     fig_trace = go.Figure()
     fig_trace.add_trace(go.Scatter(
@@ -39,12 +42,13 @@ def render_speed_header(curr, data_pool):
     ))
 
     fig_trace.update_layout(
-        height=180, 
+        height=150, 
         template="plotly_dark", 
-        margin=dict(l=0, r=0, t=10, b=0),
+        margin=dict(l=0, r=0, t=0, b=0),
         xaxis=dict(showticklabels=False, showgrid=False),
         yaxis=dict(showgrid=True, gridcolor="#333", autorange=True),
         showlegend=True, 
-        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1, font=dict(size=10))
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1, font=dict(size=9))
     )
     st.plotly_chart(fig_trace, use_container_width=True, config={'staticPlot': True})
+    st.markdown('</div>', unsafe_allow_html=True)
